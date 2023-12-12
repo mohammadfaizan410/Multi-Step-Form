@@ -61,7 +61,7 @@ html body {
     display: flex;
     height: 100%;
     width : 30%;
-    background : url("../assets/images/bg-sidebar-desktop.svg") no-repeat;
+    background : url("./assets/images/bg-sidebar-desktop.svg") no-repeat;
 }
 
 .list-container{
@@ -249,17 +249,17 @@ html body {
 .card-icon-arcade{
     height: 50px;
     width: 50px;
-    background: url("../assets/images/icon-arcade.svg") no-repeat;
+    background: url("./assets/images/icon-arcade.svg") no-repeat;
 }
 .card-icon-pro{
     height: 50px;
     width: 50px;
-    background: url("../assets/images/icon-pro.svg") no-repeat;
+    background: url("./assets/images/icon-pro.svg") no-repeat;
 }
 .card-icon-advanced{
     height: 50px;
     width: 50px;
-    background: url("../assets/images/icon-advanced.svg") no-repeat;
+    background: url("./assets/images/icon-advanced.svg") no-repeat;
 }
 
 .card-title{
@@ -486,7 +486,7 @@ hr{
 }
 
 .thankyou-icon{
-    background:url("../assets/images/icon-thank-you.svg") no-repeat;
+    background:url("./assets/images/icon-thank-you.svg") no-repeat;
     height: 100px;
     width: 100px;
 }
@@ -511,7 +511,7 @@ hr{
         flex-direction: row;
         width: 100%;
         height: 25vh;
-        background: url("../assets/images/bg-sidebar-mobile.svg") no-repeat ;
+        background: url("./assets/images/bg-sidebar-mobile.svg") no-repeat ;
         background-size: cover;
         border-radius: 0px;
     }
