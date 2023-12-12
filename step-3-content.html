@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>step-3</title>
+</head>
+<body>
+    <div id="step-3-content">
+        <div class="top-container">
+            <label class="content-title">Pick add-ons</label>
+            <label class="content-hint">Please provide your name, email address, and phone number.</label>
+        </div>
+
+        <div class="form-input-container">
+           <div class="add-ons-container">
+                <input type="checkbox" name="online-service" class="add-ons-checkbox" value="Online Services">
+                    <div class="add-ons-info-container">
+                        <div class="add-ons-info-wrapper">
+
+                            <label class="add-ons-title">Online Services</label>
+                            <label class="add-ons-hint">Access to multiplayer games</label>
+                        </div>
+                        <div>
+                            <p class="add-ons-price" id="online-service-price"></p>
+                        </div>
+                    </div>
+           </div>
+           <div class="add-ons-container">
+            <input type="checkbox" name="online-service" class="add-ons-checkbox" value="Larger Storage">
+                <div class="add-ons-info-container">
+                    <div class="add-ons-info-wrapper">
+                        <label class="add-ons-title">Larger storage</label>
+                        <label class="add-ons-hint">Extra 1TB of cloud save</label>
+                    </div>
+                    <div>
+                        <p class="add-ons-price" id="larger-storage-price"></p>
+                    </div>
+                </div>
+       </div>
+       <div class="add-ons-container" >
+        <input type="checkbox" name="online-service" class="add-ons-checkbox" value="Customizable Profile">
+            <div class="add-ons-info-container">
+                <div class="add-ons-info-wrapper">
+                    <label class="add-ons-title">Customizable Profile</label>
+                    <label class="add-ons-hint">Custom theme on your profile</label>
+                </div>
+                <div>
+                    <p class="add-ons-price" id="custom-profile-price"></p>
+                </div>
+            </div>
+   </div>
+        </div>
+    </div>
+    <div class="form-button-container">
+        <button class="form-button-back" id="back-3">back</button>
+        <button class="form-button" id="submit-3">Next</button>
+    </div>
+</body>
+
+<script>
+      $('.step-div').removeClass('step-div-active');
+    $('#step-div-3').addClass('step-div-active');
+    console.log(JSON.parse(localStorage.getItem("step_two_data")));
+    // let stepTwoData_content_3 = JSON.parse(localStorage.getItem("step_two_data"));
+    if(JSON.parse(localStorage.getItem("step_two_data")).subscription_type === "Monthly"){
+        $("#online-service-price").text("$1/mo");
+        $("#larger-storage-price").text("$2/mo");
+        $("#custom-profile-price").text("$1/mo");
+    }else{
+        $("#online-service-price").text("$10/yr");
+        $("#larger-storage-price").text("$20/yr");
+        $("#custom-profile-price").text("$10/yr");
+    }
+
+    localStorage.setItem("step_3_data", JSON.stringify([]));
+
+$(".add-ons-checkbox").click(function (e) { 
+    if($(this).closest(".add-ons-container").hasClass("add-ons-container-active")){
+        $(this).closest(".add-ons-container").removeClass("add-ons-container-active")
+    }else{
+        $(this).closest(".add-ons-container").addClass("add-ons-container-active")
+    }
+});
+$("#submit-3").click(function (e) { 
+    $(".add-ons-container-active").find(".add-ons-checkbox").map(function(){
+       localStorage.setItem("step_3_data", JSON.stringify([...JSON.parse(localStorage.getItem("step_3_data")), {
+           title: $(this).closest(".add-ons-container").find(".add-ons-title").text(),
+           price: $(this).closest(".add-ons-container").find(".add-ons-price").text().split("/")[0].split("$")[1]
+       }]));
+    });
+    e.preventDefault();
+    $(".content-div").load("step-4-content.html");
+});
+$("#back-3").click(function (e) { 
+    $('.step-div').removeClass('step-div-active');
+    e.preventDefault();
+    $(".content-div").load("step-2-content.html");
+});
+
+</script>
+</html>

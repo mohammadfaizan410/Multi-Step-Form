@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>step 2</title>
+</head>
+<body>
+    <div id="step-2-content">
+        <div class="top-container">
+        <label class="content-title">Select your plan</label>
+        <label class="content-hint">You have the option of monthly or yearly billing</label>
+        </div>
+        <div class="form-input-container-step2">
+        <div class="form-card-section">
+            <div class="card-container card-container-active">
+                <div class="card-icon-arcade"></div>
+                <div class="card-content card-content-monthly">
+                    <label class="card-title">Arcade</label>
+                    <label class="card-price">$12/mo</label>
+                </div>
+                <div class="card-content card-content-yearly card-content-hidden">
+                    <label class="card-title">Arcade</label>
+                    <label class="card-price">$90/yr</label>
+                    <label class="card-free">2 months free</label>
+                </div>
+                <label class="validation-error"></label>
+            </div>
+            <div class="card-container" class="hidden">
+                <div class="card-icon-pro"></div>
+                <div class="card-content card-content-monthly">
+                    <label class="card-title">Advanced</label>
+                    <label class="card-price">$12/mo</label>
+                </div>
+                <div class="card-content card-content-yearly card-content-hidden">
+                    <label class="card-title">Advanced</label>
+                    <label class="card-price">$120/yr</label>
+                    <label class="card-free">2 months free</label>
+                </div>
+                <label class="validation-error"></label>
+            </div>
+            <div class="card-container">
+                <div class="card-icon-advanced"></div>
+                <div class="card-content card-content-monthly">
+                    <label class="card-title">Pro</label>
+                    <label class="card-price">$15/mo</label>
+                </div>
+                <div class="card-content card-content-yearly card-content-hidden">
+                    <label class="card-title">Pro</label>
+                    <label class="card-price">$150/yr</label>
+                    <label class="card-free">2 months free</label>
+                </div>
+                <label class="validation-error"></label>
+            </div>
+
+        </div>
+        <div class="subscription-type-container" >
+            <div class="monthly-subs active-subs">Monthly</div>
+            <div class="subscription-switch">
+                <div class="subscription-switch-circle"></div>
+            </div>
+            <div class="yearly-subs">Yearly</div>
+        </div>
+        </div>
+    </div>
+
+    <div class="form-button-container">
+        <button class="form-button-back" id="back-2">back</button>
+        <button class="form-button" id="submit-2">Next</button>
+    </div>
+</body>
+<script>
+    $('.step-div').removeClass('step-div-active');
+    $('#step-div-2').addClass('step-div-active');
+   
+
+    localStorage.setItem("step_two_data", JSON.stringify({
+        subscription_type: "Monthly",
+        selected_card: "Arcade",
+        selected_price: "$12/mo"
+    }));
+
+
+    $(".card-container").click(function(){
+        $(".card-container").removeClass("card-container-active");
+        $(this).addClass("card-container-active");
+        localStorage.setItem("step_two_data", JSON.stringify({
+            ...JSON.parse(localStorage.getItem("step_two_data")),
+            selected_card : $(this).find(".card-title").eq(0).text()
+        }));
+
+        if(JSON.parse(localStorage.getItem("step_two_data")).subscription_type === "Monthly"){
+            localStorage.setItem("step_two_data", JSON.stringify({
+                ...JSON.parse(localStorage.getItem("step_two_data")),
+                selected_price : $(".card-container-active .card-price").eq(0).text()
+            }));
+        }else{
+            // selected_price = $(".card-container-active .card-price").eq(1).text();
+            localStorage.setItem("step_two_data", JSON.stringify({
+                ...JSON.parse(localStorage.getItem("step_two_data")),
+                selected_price : $(".card-container-active .card-price").eq(1).text()
+            }));
+        }
+    });
+
+    $(".subscription-switch").click(function (e) { 
+        e.preventDefault();
+        // subscription_type = subscription_type === "Monthly" ? "Yearly" : "Monthly";
+        localStorage.setItem("step_two_data", JSON.stringify({
+            ...JSON.parse(localStorage.getItem("step_two_data")),
+            subscription_type : JSON.parse(localStorage.getItem("step_two_data")).subscription_type === "Monthly" ? "Yearly" : "Monthly"
+        }));
+
+        if(localStorage.getItem("step_two_data").subscription_type === "Monthly"){
+            localStorage.setItem("step_two_data", JSON.stringify({
+                ...JSON.parse(localStorage.getItem("step_two_data")),
+                selected_price : $(".card-container-active .card-price").eq(0).text()
+            }));
+        }else{
+            localStorage.setItem("step_two_data", JSON.stringify({
+                ...JSON.parse(localStorage.getItem("step_two_data")),
+                selected_price : $(".card-container-active .card-price").eq(1).text()
+            }));
+        }
+        $(".subscription-switch").toggleClass("subscription-switch-active");
+        $(".subscription-switch-circle").toggleClass("subscription-switch-circle-active");
+        if($(".monthly-subs").hasClass("active-subs")){
+            $(".card-content-yearly").removeClass("card-content-hidden");
+            $(".monthly-subs").removeClass("active-subs");
+            $(".yearly-subs").addClass("active-subs");
+            $(".card-content-monthly").addClass("card-content-hidden");
+        }else{
+            $(".card-content-yearly").addClass("card-content-hidden");
+            $(".yearly-subs").removeClass("active-subs");
+            $(".monthly-subs").addClass("active-subs");
+            $(".card-content-monthly").removeClass("card-content-hidden"); 
+        }
+    });
+
+    $("#submit-2").click(function (e) { 
+        e.preventDefault();
+        $(".validation-error").text("");      
+        $(".content-div").load("step-3-content.html");
+    });
+
+    $("#back-2").click(function (e) { 
+        $('.step-div').removeClass('step-div-active');
+        e.preventDefault();
+        $(".content-div").load("step-1-content.html");
+
+    });
+</script>
+</html>

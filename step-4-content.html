@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="step-4-content">
+        <div class="top-container">
+        <label class="content-title">Finishing up</label>
+        <label class="content-hint">Double-check everything looks OK before confirming.</label>
+        </div>
+        <div class="form-input-container">
+            <div class="confirmation-items">
+                <div class="main-item">
+                    <div class="selection-wrapper">
+                    <label for="" class="main-item-title"></label>
+                    <a href="" class="change-link">Change</a>
+                    </div>
+                    <p class="main-item-price"></p>
+                </div>
+                <hr>
+              
+            </div>
+            <div class="total-of-items-container">
+                <p class="secondary-items-title">Total (per month)</p>
+                <p class="total-price"></p>
+            </div>
+        </div>
+    </div>
+    <div class="form-button-container">
+        <button class="form-button-back" id="back-4">back</button>
+        <button class="form-button" id="submit-4">Confirm</button>
+    </div>
+</body>
+<script>
+localStorage.setItem("totalPrice", JSON.parse(localStorage.getItem("step_two_data")).selected_price);
+      $('.step-div').removeClass('step-div-active');
+    $('#step-div-4').addClass('step-div-active');
+    $(".main-item-title").text(JSON.parse(localStorage.getItem("step_two_data")).selected_card + " (" + JSON.parse(localStorage.getItem("step_two_data")).subscription_type + ")");
+    $(".main-item-price").text("$" +  JSON.parse(localStorage.getItem("step_two_data")).selected_price.split("/")[0].split("$")[1] + "/" + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[0] + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[1]);
+    localStorage.setItem("totalPrice", JSON.parse(localStorage.getItem("step_two_data")).selected_price.split("/")[0].split("$")[1]);
+
+    JSON.parse(localStorage.getItem("step_3_data")).forEach(element =>{
+        $(".confirmation-items").append("<div class='secondary-items'><p class='secondary-items-title'>" + element.title +  "</p><p class='secondary-items-price'>$" + element.price + "/" + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[0] + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[1] +  "</p></div>");
+        localStorage.setItem("totalPrice", JSON.stringify(parseInt(localStorage.getItem("totalPrice")) + parseInt(element.price)));
+    });
+    $(".total-price").text("$" + localStorage.getItem("totalPrice") + "/" + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[0] + JSON.parse(localStorage.getItem("step_two_data")).subscription_type[1]);
+    $("#submit-4").click(function (e) { 
+        localStorage.setItem("current_step", "5"); 
+        $('.step-div').removeClass('step-div-active');
+        $(".content-div").load("final-step.html");
+    });
+    $(".secondary-items-title").text("Total (" + JSON.parse(localStorage.getItem("step_two_data")).subscription_type + ")");
+
+    $('.change-link').click(function (e) { 
+        e.preventDefault();
+        $('.step-div').removeClass('step-div-active');
+        $(".content-div").empty();
+        $(".content-div").load("step-2-content.html");
+    });
+
+    $("#back-4").click(function (e) { 
+        e.preventDefault();
+        $('.step-div').removeClass('step-div-active');
+        $(".content-div").load("step-3-content.html");
+    });
+
+</script>
+</html>

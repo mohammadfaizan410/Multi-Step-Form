@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Step Form</title>
+    <link rel="stylesheet" href="multi-step-form-style.css">
+</head>
+<body>
+    <div id="main">
+        <div class="form">
+            <div id="sidebar">
+                <div class="list-container">
+                        <div class="list-item-wrapper">
+                        <div class="step-div" id="step-div-1">1</div>
+                        <div class="step-wrapper">
+                            <div class="step-number" >STEP 1</div>
+                            <div class="step-info">YOUR INFO</div>
+                        </div>
+                    </div>
+                    <div class="list-item-wrapper">
+                        <div class="step-div" id="step-div-2">2</div>
+                        <div class="step-wrapper">
+                            <div class="step-number" >STEP 2</div>
+                            <div class="step-info">SLECT PLAN</div>
+                        </div>
+                    </div>
+                    <div class="list-item-wrapper">
+                        <div class="step-div" id="step-div-3">3</div>
+                        <div class="step-wrapper">
+                            <div class="step-number" >STEP 3</div>
+                            <div class="step-info">ADD-ONS</div>
+                        </div>
+                    </div>
+                    <div class="list-item-wrapper">
+                        <div class="step-div" id="step-div-4">4</div>
+                        <div class="step-wrapper">
+                            <div class="step-number" >STEP 4</div>
+                            <div class="step-info">SUMMARY</div>
+                        </div>
+                        
+                    </div>
+            </div>
+            </div>
+
+            <div class="content-div">
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    localStorage.clear();
+    $(".content-div").load("step-1-content.html");
+    
+</script>

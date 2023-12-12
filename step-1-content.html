@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>step-1</title>
+</head>
+<body>
+    <div id="step-1-content">
+        <div class="top-container">
+        <label class="content-title">Personal info</label>
+        <label class="content-hint">Please provide your name, email address, and phone number.</label>
+        </div>
+        <div class="form-input-container">
+            <div class="form-sub-container">
+                <div class="error-label-container">
+                    <label for="name" class="form-label">Name</label>
+                    <label class="validation-error"></label>
+                </div>
+                <input type="text" name="name" placeholder="Enter Name" class="form-input">
+            </div>
+            <div class="form-sub-container">
+                <div class="error-label-container">
+                    <label for="email" class="form-label">Email Address</label>
+                    <label class="validation-error"></label>
+                </div>
+            <input type="text" name="email-address" placeholder="example@gmail.com" class="form-input">
+            </div>
+            <div class="form-sub-container">
+                <div class="error-label-container">
+                    <label for="phone" class="form-label">Phone Number</label>
+                    <label class="validation-error"></label>
+                </div>
+                <input type="text" name="phone-number" placeholder="e.g. +92 333 000000" class="form-input">
+            </div>
+        </div>
+    </div>
+    <div class="form-button-container-1">
+        <button class="form-button" id="submit-1">Next</button>
+    </div>
+</body>
+<script>
+    $('#step-div-1').addClass('step-div-active');
+
+    //set input data from localStorage
+    if(localStorage.getItem("step_one_data") !== null){
+        $("input[name='name']").val(JSON.parse(localStorage.getItem("step_one_data")).name);
+        $("input[name='email-address']").val(JSON.parse(localStorage.getItem("step_one_data")).email);
+        $("input[name='phone-number']").val(JSON.parse(localStorage.getItem("step_one_data")).phone);
+    }
+
+    $("#submit-1").click(function (e) { 
+        let emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        e.preventDefault();
+        if($("input[name='name']").val() === ""){
+            $("input[name='name']").closest(".form-sub-container").find(".validation-error").text("Name is required");
+        }else if($("input[name='email-address']").val() === ""){
+            $("input[name='email-address']").closest(".form-sub-container").find(".validation-error").text("Email is required");
+        }else if($("input[name='phone-number']").val() === ""){
+            $("input[name='phone-number']").closest(".form-sub-container").find(".validation-error").text("Phone is required");
+        }else if(!emailRegex.test($("input[name='email-address']").val())) {
+            $("input[name='email-address']").closest(".form-sub-container").find(".validation-error").text("Email is invalid");
+        }else if($("input[name='phone-number']") < 11){
+            $("input[name='phone-number']").closest(".form-sub-container").find(".validation-error").text("Phone number is invalid");
+        }
+        else{
+            localStorage.setItem('step_one_data', JSON.stringify({
+            name: $("input[name='name']").val(),
+            email: $("input[name='email-address']").val(),
+            phone: $("input[name='phone-number']").val()
+        }));
+        $(".content-div").load("step-2-content.html");
+    }
+    });
+</script>
+</html>
