@@ -695,8 +695,18 @@ hr{
         background-color:hsl(217, 100%, 97%) ;
         border-radius: 10px;
     }
+    .card-free{
+        font-size: 12px;
+    }
 
     #submit-4{
         padding: 15px 35px;
+    }
+
+    .card-title{
+        font-size: 14px;
+    }
+    .subscription-type-container{
+        margin-top : 20px;
     }
 }
